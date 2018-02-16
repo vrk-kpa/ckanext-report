@@ -14,7 +14,7 @@
           {{ _('Generated') }}: {{ h.report__render_datetime(report_date, '%d/%m/%Y %H:%M') }}
       </p>
       {% if c.userobj.sysadmin %}
-      <div class="panel panel-info" style="width=700px">
+      <div class="panel panel-info report-controls" style="width=700px">
           <div class="panel-heading"><strong>Refresh report</strong></div>
           <div class="panel-body">
             <form action="" method="POST">
@@ -26,8 +26,8 @@
       {% endif %}
 
       {% if options %}
-        <h3>{{ _('Options') }}</h3>
-        <form action="">
+        <h3 class="report-options-title">{{ _('Options') }}</h3>
+        <form action="" class="report-options">
           {% for key, value in options.items() %}
             {% if key in options_html %}
               {{ options_html[key]|safe }}
@@ -41,13 +41,13 @@
       {% endif %}
 
       {% if are_some_results %}
-        <div class="pull-right">
+        <div class="pull-right report-download-controls">
             {{ _('Download') }}:
             <a class="btn btn-primary" href="{{ h.report__relative_url_for(format='csv') }}">CSV</a>
             <a class="btn btn-primary" href="{{ h.report__relative_url_for(format='json') }}">JSON</a>
         </div>
       {% endif %}
-      <h3>{{ _('Results') }}</h3>
+      <h3 class="report-results-title">{{ _('Results') }}</h3>
       {% if not are_some_results %}
         <p>{{ _('No results found.') }}</p>
       {% else %}
