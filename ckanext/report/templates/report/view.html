@@ -8,8 +8,8 @@
 {% endblock%}
 
 {% block primary_content_inner %}
-      <h1>{{ report.title }}</h1>
-      <p>{{ report.description }}</p>
+      <h1>{{ _(report.title) }}</h1>
+      <p>{{ _(report.description) }}</p>
       <p>
           {{ _('Generated') }}: {{ h.report__render_datetime(report_date, '%d/%m/%Y %H:%M') }}
       </p>
