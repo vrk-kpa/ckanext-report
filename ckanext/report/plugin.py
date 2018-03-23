@@ -5,13 +5,15 @@ import ckanext.report.logic.action.get as action_get
 import ckanext.report.logic.action.update as action_update
 import ckanext.report.logic.auth.get as auth_get
 import ckanext.report.logic.auth.update as auth_update
+from ckan.lib.plugins import DefaultTranslation
 
-class ReportPlugin(p.SingletonPlugin):
+class ReportPlugin(p.SingletonPlugin, DefaultTranslation):
     p.implements(p.IRoutes, inherit=True)
     p.implements(p.IConfigurer)
     p.implements(p.ITemplateHelpers)
     p.implements(p.IActions, inherit=True)
     p.implements(p.IAuthFunctions, inherit=True)
+    p.implements(p.ITranslation)
 
     # IRoutes
 

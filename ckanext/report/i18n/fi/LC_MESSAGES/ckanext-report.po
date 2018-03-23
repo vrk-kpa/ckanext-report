@@ -2,7 +2,7 @@
 # Copyright (C) 2018 ORGANIZATION
 # This file is distributed under the same license as the ckanext-report project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
@@ -10,31 +10,33 @@ msgstr ""
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2018-03-22 10:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Last-Translator: Teemu Erkkola <teemu.erkkola@iki.fi>, 2018\n"
+"Language-Team: Finnish (https://www.transifex.com/avoindata/teams/7979/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ckanext/report/templates/report/index.html:3
 #: ckanext/report/templates/report/index.html:6
 #: ckanext/report/templates/report/view.html:3
 #: ckanext/report/templates/report/view.html:6
 msgid "Reports"
-msgstr ""
+msgstr "Raportit"
 
 #: ckanext/report/templates/report/index.html:26
 msgid "View Report"
-msgstr ""
+msgstr "Näytä raportti"
 
 #: ckanext/report/templates/report/option_include_sub_organizations.html:9
 msgid "Include results from sub-organizations"
-msgstr ""
+msgstr "Sisällytä aliorganisaatioiden tulokset"
 
 #: ckanext/report/templates/report/option_organization.html:9
 msgid "Organization"
-msgstr ""
+msgstr "Organisaatio"
 
 #: ckanext/report/templates/report/option_organization.html:12
 #: ckanext/report/templates/report/option_organization.html:16
@@ -67,25 +69,27 @@ msgstr ""
 
 #: ckanext/report/templates/report/view.html:14
 msgid "Generated"
-msgstr ""
+msgstr "Luotu"
 
 #: ckanext/report/templates/report/view.html:18
 msgid "Refresh report"
-msgstr ""
+msgstr "Päivitä raportti"
 
 #: ckanext/report/templates/report/view.html:21
 msgid "Refresh"
-msgstr ""
+msgstr "Päivitä"
 
 #: ckanext/report/templates/report/view.html:23
 msgid ""
 "As a system administrator you are able to refresh this report on demand by "
 "clicking the 'Refresh' button."
 msgstr ""
+"Järjestelmänvalvojana voit päivittää raportin halutessasi klikkaamalla "
+"'Päivitä'."
 
 #: ckanext/report/templates/report/view.html:29
 msgid "Options"
-msgstr ""
+msgstr "Valinnat"
 
 #: ckanext/report/templates/report/view.html:45
 msgid "Download"
@@ -93,9 +97,8 @@ msgstr ""
 
 #: ckanext/report/templates/report/view.html:50
 msgid "Results"
-msgstr ""
+msgstr "Tulokset"
 
 #: ckanext/report/templates/report/view.html:52
 msgid "No results found."
-msgstr ""
-
+msgstr "Ei tuloksia."

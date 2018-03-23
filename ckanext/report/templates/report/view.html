@@ -4,14 +4,14 @@
 
 {% block breadcrumb_content %}
   {{ h.build_nav('reports', _('Reports')) }}
-  {{ h.build_nav('report-org' if '/organization' in request.environ.get('PATH_INFO', '') else 'report', report.title, report_name=report_name) }}
+  {{ h.build_nav('report-org' if '/organization' in request.environ.get('PATH_INFO', '') else 'report', _(report.title), report_name=report_name) }}
 {% endblock%}
 
 {% block primary_content_inner %}
       <h1>{{ _(report.title) }}</h1>
       <p>{{ _(report.description) }}</p>
       <p>
-          {{ _('Generated') }}: {{ h.report__render_datetime(report_date, '%d/%m/%Y %H:%M') }}
+          {{ _('Generated') }}: {{ h.render_datetime(report_date, with_hours=True) }}
       </p>
       {% if c.userobj.sysadmin %}
       <div class="panel panel-info report-controls" style="width=700px">
