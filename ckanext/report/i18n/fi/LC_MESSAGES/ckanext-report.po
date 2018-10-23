@@ -41,31 +41,31 @@ msgstr "Organisaatio"
 #: ckanext/report/templates/report/option_organization.html:12
 #: ckanext/report/templates/report/option_organization.html:16
 msgid "Index of all organizations"
-msgstr ""
+msgstr "Kaikki organisaatiot"
 
 #: ckanext/report/templates/report/tagless-datasets.html:8
 msgid "Datasets without tags"
-msgstr ""
+msgstr "Tietoaineistot ilman asiasanoja"
 
 #: ckanext/report/templates/report/tagless-datasets.html:9
 msgid "Average tags per package"
-msgstr ""
+msgstr "Asiasanoja tietoaineistoa kohden"
 
 #: ckanext/report/templates/report/tagless-datasets.html:15
 msgid "Dataset"
-msgstr ""
+msgstr "Tietoaineisto"
 
 #: ckanext/report/templates/report/tagless-datasets.html:16
 msgid "Notes"
-msgstr ""
+msgstr "Kuvaus"
 
 #: ckanext/report/templates/report/tagless-datasets.html:17
 msgid "User"
-msgstr ""
+msgstr "Käyttäjä"
 
 #: ckanext/report/templates/report/tagless-datasets.html:18
 msgid "Created"
-msgstr ""
+msgstr "Luotu"
 
 #: ckanext/report/templates/report/view.html:14
 msgid "Generated"
@@ -93,7 +93,7 @@ msgstr "Valinnat"
 
 #: ckanext/report/templates/report/view.html:45
 msgid "Download"
-msgstr ""
+msgstr "Lataa"
 
 #: ckanext/report/templates/report/view.html:50
 msgid "Results"
