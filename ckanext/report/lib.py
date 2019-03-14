@@ -11,9 +11,9 @@ def all_organizations(include_none=False):
     from ckan import model
     if include_none:
         yield None
-    organizations = model.Session.query(model.Group).\
-        filter(model.Group.type=='organization').\
-        filter(model.Group.state=='active').order_by('name')
+    organizations = model.Session.query(model.Group). \
+        filter(model.Group.type == 'organization'). \
+        filter(model.Group.state == 'active').order_by('name')
     for organization in organizations:
         yield organization.name
 

@@ -71,12 +71,12 @@ class DataCache(object):
         Retrieves the value and date that it was written if the record with
         object_id/key exists. If not it will return None/None.
         """
-        item = model.Session.query(cls)\
-                    .filter(cls.key == key)\
-                    .filter(cls.object_id == object_id)\
-                    .first()
+        item = model.Session.query(cls) \
+            .filter(cls.key == key) \
+            .filter(cls.object_id == object_id) \
+            .first()
         if not item:
-            #log.debug('Does not exist in cache: %s/%s', object_id, key)
+            # log.debug('Does not exist in cache: %s/%s', object_id, key)
             return (None, None)
 
         if max_age:
@@ -95,11 +95,11 @@ class DataCache(object):
                 # Python 2.7's json library has object_pairs_hook
                 import json
                 value = json.loads(value, object_pairs_hook=OrderedDict)
-            except TypeError: # Untested
+            except TypeError:  # Untested
                 # Python 2.4-2.6
                 import simplejson as json
                 value = json.loads(value, object_pairs_hook=OrderedDict)
-        #log.debug('Cache load: %s/%s "%s"...', object_id, key, repr(value)[:40])
+        # log.debug('Cache load: %s/%s "%s"...', object_id, key, repr(value)[:40])
         return value, item.created
 
     @classmethod
@@ -118,8 +118,8 @@ class DataCache(object):
             value = json.dumps(value)
 
         item = model.Session.query(cls) \
-                    .filter(cls.key == key) \
-                    .filter(cls.object_id == object_id).first()
+            .filter(cls.key == key) \
+            .filter(cls.object_id == object_id).first()
         if item is None:
             item = DataCache(object_id=object_id, key=key, value=value)
             model.Session.add(item)
@@ -131,7 +131,9 @@ class DataCache(object):
         model.Session.flush()
         return item.created
 
+
 mapper(DataCache, data_cache_table)
+
 
 def init_tables():
     metadata.create_all(model.meta.engine)

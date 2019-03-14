@@ -13,8 +13,10 @@ def tagless_report(organization, include_sub_organizations=False):
     Returns something like this:
         {
          'table': [
-            {'name': 'river-levels', 'title': 'River levels', 'notes': 'Harvested', 'user': 'bob', 'created': '2008-06-13T10:24:59.435631'},
-            {'name': 'co2-monthly', 'title' 'CO2 monthly', 'notes': '', 'user': 'bob', 'created': '2009-12-14T08:42:45.473827'},
+            {'name': 'river-levels', 'title': 'River levels', 'notes': 'Harvested', 'user': 'bob',
+             'created': '2008-06-13T10:24:59.435631'},
+            {'name': 'co2-monthly', 'title' 'CO2 monthly', 'notes': '', 'user': 'bob',
+             'created': '2009-12-14T08:42:45.473827'},
             ],
          'num_packages': 56,
          'packages_without_tags_percent': 4,
@@ -23,18 +25,20 @@ def tagless_report(organization, include_sub_organizations=False):
     '''
     # Find the packages without tags
     q = model.Session.query(model.Package) \
-             .outerjoin(model.PackageTag) \
-             .filter(model.PackageTag.id == None)
+        .outerjoin(model.PackageTag) \
+        .filter(
+        model.PackageTag.id == None  # noqa: E711
+    )
     if organization:
         q = lib.filter_by_organizations(q, organization,
                                         include_sub_organizations)
     tagless_pkgs = [OrderedDict((
-            ('name', pkg.name),
-            ('title', pkg.title),
-            ('notes', lib.dataset_notes(pkg)),
-            ('user', pkg.creator_user_id),
-            ('created', pkg.metadata_created.isoformat()),
-            )) for pkg in q.slice(0, 100)]  # First 100 only for this demo
+        ('name', pkg.name),
+        ('title', pkg.title),
+        ('notes', lib.dataset_notes(pkg)),
+        ('user', pkg.creator_user_id),
+        ('created', pkg.metadata_created.isoformat()),
+    )) for pkg in q.slice(0, 100)]  # First 100 only for this demo
 
     # Average number of tags per package
     q = model.Session.query(model.Package)
@@ -53,13 +57,15 @@ def tagless_report(organization, include_sub_organizations=False):
         'num_packages': num_packages,
         'packages_without_tags_percent': packages_without_tags_percent,
         'average_tags_per_package': average_tags_per_package,
-        }
+    }
+
 
 def tagless_report_option_combinations():
     for organization in lib.all_organizations(include_none=True):
         for include_sub_organizations in (False, True):
             yield {'organization': organization,
                    'include_sub_organizations': include_sub_organizations}
+
 
 tagless_report_info = {
     'name': 'tagless-datasets',
@@ -70,4 +76,4 @@ tagless_report_info = {
     'option_combinations': tagless_report_option_combinations,
     'generate': tagless_report,
     'template': 'report/tagless-datasets.html',
-    }
+}
