@@ -1,22 +1,54 @@
 # Translations template for ckanext-report.
-# Copyright (C) 2018 ORGANIZATION
+# Copyright (C) 2019 ORGANIZATION
 # This file is distributed under the same license as the ckanext-report project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-report 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-03-22 10:33+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2019-07-31 11:24+0000\n"
+"PO-Revision-Date: 2018-03-22 08:36+0000\n"
 "Language-Team: Swedish (https://www.transifex.com/avoindata/teams/7979/sv/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ckanext/report/translations.py:8
+msgid "Score frequencies"
+msgstr ""
+
+#: ckanext/report/translations.py:9
+msgid "Datasets given a score"
+msgstr ""
+
+#: ckanext/report/translations.py:10
+msgid "Score TBC"
+msgstr ""
+
+#: ckanext/report/translations.py:11
+msgid "Score"
+msgstr ""
+
+#: ckanext/report/translations.py:12
+msgid "Total stars"
+msgstr ""
+
+#: ckanext/report/translations.py:13
+msgid "Average score"
+msgstr ""
+
+#: ckanext/report/translations.py:14
+msgid "Broken datasets"
+msgstr ""
+
+#: ckanext/report/translations.py:15
+msgid "% Broken links"
+msgstr ""
 
 #: ckanext/report/templates/report/index.html:3
 #: ckanext/report/templates/report/index.html:6
