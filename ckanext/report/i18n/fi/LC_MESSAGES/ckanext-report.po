@@ -60,11 +60,11 @@ msgstr "% Rikkinäiset linkit"
 #: ckanext/report/templates/report/view.html:3
 #: ckanext/report/templates/report/view.html:6
 msgid "Reports"
-msgstr "Raportit"
+msgstr "Tilastot"
 
 #: ckanext/report/templates/report/index.html:26
 msgid "View Report"
-msgstr "Näytä raportti"
+msgstr "Näytä tilasto"
 
 #: ckanext/report/templates/report/option_include_sub_organizations.html:9
 msgid "Include results from sub-organizations"
@@ -109,7 +109,7 @@ msgstr "Luotu"
 
 #: ckanext/report/templates/report/view.html:18
 msgid "Refresh report"
-msgstr "Päivitä raportti"
+msgstr "Päivitä tilasto"
 
 #: ckanext/report/templates/report/view.html:21
 msgid "Refresh"
@@ -120,7 +120,7 @@ msgid ""
 "As a system administrator you are able to refresh this report on demand by "
 "clicking the 'Refresh' button."
 msgstr ""
-"Järjestelmänvalvojana voit päivittää raportin halutessasi klikkaamalla "
+"Järjestelmänvalvojana voit päivittää tilaston halutessasi klikkaamalla "
 "'Päivitä'."
 
 #: ckanext/report/templates/report/view.html:29
