@@ -57,6 +57,14 @@ class ReportPlugin(MixinPlugin, p.SingletonPlugin, DefaultTranslation):
                 'report_key_get': auth_get.report_key_get,
                 'report_refresh': auth_update.report_refresh}
 
+    # ITranslation
+
+    def i18n_directory(self):
+        import os.path
+        plugin_path, i18n_dir = os.path.split(DefaultTranslation.i18n_directory(self))
+        extension_dir, _ = os.path.split(plugin_path)
+        return os.path.join(extension_dir, i18n_dir)
+
 
 class TaglessReportPlugin(p.SingletonPlugin):
     '''
