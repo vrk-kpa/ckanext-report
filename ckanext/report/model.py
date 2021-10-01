@@ -8,7 +8,7 @@ from sqlalchemy import types, Table, Column, Index, MetaData
 from sqlalchemy.orm import mapper
 
 from ckan import model
-from ckan.common import OrderedDict
+from collections import OrderedDict
 
 log = logging.getLogger(__name__)
 
@@ -76,7 +76,6 @@ class DataCache(object):
             .filter(cls.object_id == object_id) \
             .first()
         if not item:
-            # log.debug('Does not exist in cache: %s/%s', object_id, key)
             return (None, None)
 
         if max_age:
@@ -99,7 +98,6 @@ class DataCache(object):
                 # Python 2.4-2.6
                 import simplejson as json
                 value = json.loads(value, object_pairs_hook=OrderedDict)
-        # log.debug('Cache load: %s/%s "%s"...', object_id, key, repr(value)[:40])
         return value, item.created
 
     @classmethod

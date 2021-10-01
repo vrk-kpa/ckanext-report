@@ -1,11 +1,13 @@
+from past.builtins import basestring
+
 import logging
 import copy
 import re
 
-from paste.deploy.converters import asbool
+from ckan.plugins.toolkit import asbool
 
 from ckan import model
-from ckan.common import OrderedDict
+from collections import OrderedDict
 from ckanext.report.interfaces import IReport
 
 log = logging.getLogger(__name__)
@@ -23,11 +25,11 @@ class Report(object):
 
         # Check the report_info_dict has the correct keys
         missing_required_keys = REPORT_KEYS_REQUIRED - set(report_info_dict.keys())
-        assert not missing_required_keys, 'Report info dict missing keys %r: ' \
-                                          '%r' % (missing_required_keys, report_info_dict)
+        assert not missing_required_keys, 'Report info dict missing keys %r: '\
+            '%r' % (missing_required_keys, report_info_dict)
         unknown_keys = set(report_info_dict.keys()) - REPORT_KEYS_REQUIRED - REPORT_KEYS_OPTIONAL
-        assert not unknown_keys, 'Report info dict has unrecognized keys %r: ' \
-                                 '%r' % (unknown_keys, report_info_dict)
+        assert not unknown_keys, 'Report info dict has unrecognized keys %r: '\
+            '%r' % (unknown_keys, report_info_dict)
         if not report_info_dict['option_defaults']:
             report_info_dict['option_defaults'] = OrderedDict()
         assert isinstance(report_info_dict['option_defaults'], OrderedDict)
