@@ -3,8 +3,8 @@
 {% block title %}{{ report.title }} - {{ _('Reports') }} - {{ super() }}{% endblock %}
 
 {% block breadcrumb_content %}
-  {{ h.nav_link(_('Reports'), named_route='report.index') }}
-  {{ h.nav_link(report.title, named_route='report-org' if '/organization' in request.environ.get('PATH_INFO', '') else 'report.view', report_name=report_name) }}
+  <li>{{ h.nav_link(_('Reports'), named_route='report.index') }}</li>
+  <li class="active">{{ h.nav_link(report.title, named_route='report-org' if '/organization' in request.environ.get('PATH_INFO', '') else 'report.view', report_name=report_name) }}</li>
 {% endblock%}
 
 {% block primary_content_inner %}
@@ -60,8 +60,11 @@
 
 {% block scripts %}
     {{ super() }}
-    {% resource 'report/javascript/jquery.tablesorter.js' %}
-    {% resource 'report/javascript/report.js' %}
-
-{% endblock%}
+    {% if h.ckan_version().split('.')|map('int')|list >= [2, 9, 0] %}
+      {% asset 'report/main_js' %}
+    {% else %}
+      {% resource 'report/javascript/jquery.tablesorter.js' %}
+      {% resource 'report/javascript/report.js' %}
+    {% endif %}
+{% endblock %}
 

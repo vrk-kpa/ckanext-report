@@ -3,7 +3,7 @@ import json
 from flask import Blueprint, request
 
 import ckan.plugins.toolkit as t
-import ckan.lib.helpers as helpers
+from . import helpers
 from jinja2.exceptions import TemplateNotFound
 
 from ckanext.report.report_registry import Report
@@ -139,7 +139,7 @@ def view(report_name, organization=None, refresh=False):
 
 
 report.add_url_rule(u'/report', view_func=index)
-report.add_url_rule(u'/report/<report_name>', view_func=view)
+report.add_url_rule(u'/report/<report_name>', methods=['GET', 'POST'], view_func=view)
 report.add_url_rule(u'/report/<report_name>/<organization>', view_func=view)
 
 
