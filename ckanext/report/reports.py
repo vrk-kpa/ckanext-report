@@ -58,7 +58,6 @@ def tagless_report(organization, include_sub_organizations=False):
     }
 
 
-
 def tagless_report_option_combinations():
     for organization in lib.all_organizations(include_none=True):
         for include_sub_organizations in (False, True):
