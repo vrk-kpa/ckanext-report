@@ -5,7 +5,7 @@ These functions are for use by other extensions for their reports.
 import ckan.plugins as p
 from past.builtins import basestring
 from collections import OrderedDict
-from datetime import datetime
+import datetime
 
 
 def all_organizations(include_none=False):
@@ -70,7 +70,7 @@ def percent(numerator, denominator):
 
 def make_csv_from_dicts(rows):
     import csv
-    import cStringIO as StringIO
+    import io as StringIO
 
     csvout = StringIO.StringIO()
     csvwriter = csv.writer(
