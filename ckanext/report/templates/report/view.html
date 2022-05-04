@@ -57,14 +57,3 @@
       {% endif %}
   </div>
 {% endblock%}
-
-{% block scripts %}
-    {{ super() }}
-    {% if h.ckan_version().split('.')|map('int')|list >= [2, 9, 0] %}
-      {% asset 'report/main_js' %}
-    {% else %}
-      {% resource 'report/javascript/jquery.tablesorter.js' %}
-      {% resource 'report/javascript/report.js' %}
-    {% endif %}
-{% endblock %}
-
