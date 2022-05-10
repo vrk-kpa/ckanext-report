@@ -1,4 +1,4 @@
-main_js:
+report_js:
   filter: rjsmin
   output: ckanext-report/%(version)s_-main.js
   extra:
