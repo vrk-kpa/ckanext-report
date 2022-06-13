@@ -1,10 +1,9 @@
 [main]
 host = https://www.transifex.com
 
-[ytp.ckanext-report]
+[o:avoindata:p:ytp:r:ckanext-report]
 file_filter = ckanext/report/i18n/<lang>/LC_MESSAGES/ckanext-report.po
 source_file = ckanext/report/i18n/ckanext-report.pot
 source_lang = en
-type = PO
-
+type        = PO
 
