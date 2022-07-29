@@ -1,5 +1,6 @@
-from past.builtins import xrange
+# encoding: utf-8
 
+from six.moves import range
 from ckanext.report.report_registry import ReportRegistry
 from ckan.plugins import toolkit as tk
 import ckan.lib.helpers
@@ -61,7 +62,7 @@ def remove_organization_from_url():
 
 def chunks(list_, size):
     '''Splits up a given list into 'size' sized chunks.'''
-    for i in xrange(0, len(list_), size):
+    for i in range(0, len(list_), size):
         yield list_[i:i + size]
 
 

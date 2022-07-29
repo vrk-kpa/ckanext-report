@@ -3,7 +3,12 @@ Working examples - simple tag report.
 '''
 
 from ckan import model
-from collections import OrderedDict
+
+try:
+    from collections import OrderedDict  # from python 2.7
+except ImportError:
+    from sqlalchemy.util import OrderedDict
+
 from ckanext.report import lib
 
 
@@ -14,9 +19,9 @@ def tagless_report(organization, include_sub_organizations=False):
         {
          'table': [
             {'name': 'river-levels', 'title': 'River levels', 'notes': 'Harvested',
-            'user': 'bob', 'created': '2008-06-13T10:24:59.435631'},
-            {'name': 'co2-monthly', 'title' 'CO2 monthly', 'notes': '', 'user': 'bob',
-            'created': '2009-12-14T08:42:45.473827'},
+             'user': 'bob', 'created': '2008-06-13T10:24:59.435631'},
+            {'name': 'co2-monthly', 'title' 'CO2 monthly', 'notes': '',
+             'user': 'bob', 'created': '2009-12-14T08:42:45.473827'},
             ],
          'num_packages': 56,
          'packages_without_tags_percent': 4,
@@ -26,7 +31,7 @@ def tagless_report(organization, include_sub_organizations=False):
     # Find the packages without tags
     q = model.Session.query(model.Package) \
              .outerjoin(model.PackageTag) \
-             .filter(model.PackageTag.id == None)  # noqa: E711
+             .filter(model.PackageTag.id is None)
     if organization:
         q = lib.filter_by_organizations(q, organization,
                                         include_sub_organizations)
