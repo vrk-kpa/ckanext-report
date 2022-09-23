@@ -46,7 +46,7 @@ def view(report_name, organization=None, refresh=False):
     if 'organization' in t.request.params:
         # organization should only be in the url - let the param overwrite
         # the url.
-        t.redirect_to(relative_url_for())
+        return t.redirect_to(relative_url_for(organization=None) + '/{}'.format(t.request.params.get('organization')))
 
     # options
     options = Report.add_defaults_to_options(t.request.params, report['option_defaults'])
@@ -65,7 +65,9 @@ def view(report_name, organization=None, refresh=False):
             log.warn('Not displaying report option HTML for param %s as option not recognized')
             continue
         option_display_params = {'value': options[option],
-                                 'default': report['option_defaults'][option]}
+                                 'default': report['option_defaults'][option],
+                                 'report_name': report_name,
+                                 'report': report}
         try:
             options_html[option] = \
                 t.render_snippet('report/option_%s.html' % option,

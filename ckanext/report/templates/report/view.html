@@ -32,7 +32,7 @@
 
       {% if options %}
         <h3 class="report-options-title">{{ _('Options') }}</h3>
-        <form action="" class="report-options">
+        <form action="{{ h.url_for('report.view', report_name=report_name, **h.report__explicit_default_options(report.name)) }}" class="report-options">
           {% for key, value in options.items() %}
             {% if key in options_html %}
               {{ options_html[key]|safe }}
