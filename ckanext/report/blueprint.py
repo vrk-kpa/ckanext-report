@@ -48,6 +48,13 @@ def view(report_name, organization=None, refresh=False):
         # the url.
         t.redirect_to(relative_url_for())
 
+    # if organization is used as a parameter, redirect to /report/<report_name>/<organization>
+    organization_parm = t.request.params.get('organization')
+    logging.warning(f"Organization parameter: {organization_parm}")
+    if organization_parm:
+        my_url = f'/data/report/{report_name}/{organization_parm}'
+        return t.redirect_to(my_url)
+
     # options
     options = Report.add_defaults_to_options(t.request.params, report['option_defaults'])
     option_display_params = {}
@@ -133,6 +140,7 @@ def view(report_name, organization=None, refresh=False):
     # A couple of context variables for legacy genshi reports
     c.data = data
     c.options = options
+
     return t.render('report/view.html', extra_vars={
         'report': report, 'report_name': report_name, 'data': data,
         'report_date': report_date, 'options': options,
@@ -143,7 +151,7 @@ def view(report_name, organization=None, refresh=False):
 
 report.add_url_rule(u'/report', view_func=index)
 report.add_url_rule(u'/report/<report_name>', view_func=view, methods=['GET', 'POST'])
-report.add_url_rule(u'/report/<report_name>/<organization>', view_func=view)
+report.add_url_rule(u'/report/<report_name>/<organization>', view_func=view, methods=['GET', 'POST'])
 
 
 def get_blueprints():

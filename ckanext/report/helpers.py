@@ -4,6 +4,7 @@ from ckanext.report.report_registry import ReportRegistry
 from ckan.plugins import toolkit as tk
 import ckan.lib.helpers
 from ckan import model
+import logging
 
 
 def relative_url_for(**kwargs):
@@ -27,6 +28,7 @@ def relative_url_for(**kwargs):
         for k, v in list(args.items()):
             if not v:
                 del args[k]
+        
         return tk.url_for(request.path, **args)
 
     else:
@@ -40,6 +42,18 @@ def relative_url_for(**kwargs):
                 del args[k]
         return tk.url_for(**args)
 
+# Used to get report for a specific organization
+def get_organization_url(organization):
+    from flask import request
+    if not organization:
+        return request.path
+    
+    organization_path = f"{request.path}/{organization}"
+    return tk.url_for(organization_path)
+
+def get_report_url(report_name):
+    report_path = f"/data/report/{report_name}"
+    return report_path
 
 def chunks(list_, size):
     '''Splits up a given list into 'size' sized chunks.'''
