@@ -1,5 +1,6 @@
 from builtins import str
 import json
+from weakref import ref
 from flask import Blueprint, request, make_response
 
 import ckan.plugins.toolkit as t
@@ -7,7 +8,9 @@ from jinja2.exceptions import TemplateNotFound
 
 from ckanext.report.report_registry import Report
 from ckanext.report.lib import make_csv_from_dicts, ensure_data_is_dicts, anonymise_user_names
-from ckanext.report.helpers import relative_url_for
+from ckanext.report.helpers import relative_url_for, get_organization_url
+import ckan.lib.helpers as h
+from werkzeug.datastructures import MultiDict
 
 
 import logging
@@ -50,10 +53,13 @@ def view(report_name, organization=None, refresh=False):
 
     # if organization is used as a parameter, redirect to /report/<report_name>/<organization>
     organization_parm = t.request.params.get('organization')
-    logging.warning(f"Organization parameter: {organization_parm}")
     if organization_parm:
-        my_url = f'/data/report/{report_name}/{organization_parm}'
-        return t.redirect_to(my_url)
+        # check if include suborganizations is specified in the request
+        if t.request.params.__contains__('include_sub_organizations'):
+            url = h.url_for('report.organization_view', report_name=report_name, organization=organization_parm, include_sub_organizations=1)
+        else:
+            url = h.url_for('report.organization_view', report_name=report_name, organization=organization_parm)
+        return t.redirect_to(url)
 
     # options
     options = Report.add_defaults_to_options(t.request.params, report['option_defaults'])
@@ -149,9 +155,19 @@ def view(report_name, organization=None, refresh=False):
         'are_some_results': are_some_results})
 
 
+def organization_view(report_name, organization, refresh=False):
+    return view(report_name=report_name, organization=organization, refresh=refresh)
+
+def report_base(report_name):
+    return report.view(report_name)
+
+def report_base_org(report_name, organization):
+    return report.view(report_name, organization)
+
+
 report.add_url_rule(u'/report', view_func=index)
 report.add_url_rule(u'/report/<report_name>', view_func=view, methods=['GET', 'POST'])
-report.add_url_rule(u'/report/<report_name>/<organization>', view_func=view, methods=['GET', 'POST'])
+report.add_url_rule(u'/report/<report_name>/<organization>', view_func=organization_view, methods=['GET', 'POST'])
 
 
 def get_blueprints():
