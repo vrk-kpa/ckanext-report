@@ -1,6 +1,5 @@
 from builtins import str
 import json
-from weakref import ref
 from flask import Blueprint, request, make_response
 
 import ckan.plugins.toolkit as t
@@ -8,9 +7,8 @@ from jinja2.exceptions import TemplateNotFound
 
 from ckanext.report.report_registry import Report
 from ckanext.report.lib import make_csv_from_dicts, ensure_data_is_dicts, anonymise_user_names
-from ckanext.report.helpers import relative_url_for, get_organization_url
+from ckanext.report.helpers import relative_url_for
 import ckan.lib.helpers as h
-from werkzeug.datastructures import MultiDict
 
 
 import logging
