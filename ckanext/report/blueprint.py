@@ -56,7 +56,7 @@ def view(report_name, organization=None, refresh=False):
         if t.request.params.__contains__('include_sub_organizations'):
             url = h.url_for('report.organization_view',
                             report_name=report_name,
-                            organization=organization_parm, 
+                            organization=organization_parm,
                             include_sub_organizations=1)
         else:
             url = h.url_for('report.organization_view', report_name=report_name, organization=organization_parm)
