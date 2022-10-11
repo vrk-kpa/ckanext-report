@@ -54,7 +54,8 @@ def view(report_name, organization=None, refresh=False):
     if organization_parm:
         # check if include suborganizations is specified in the request
         if t.request.params.__contains__('include_sub_organizations'):
-            url = h.url_for('report.organization_view', report_name=report_name, organization=organization_parm, include_sub_organizations=1)
+            url = h.url_for('report.organization_view', report_name=report_name, 
+                organization=organization_parm, include_sub_organizations=1)
         else:
             url = h.url_for('report.organization_view', report_name=report_name, organization=organization_parm)
         return t.redirect_to(url)
@@ -156,8 +157,10 @@ def view(report_name, organization=None, refresh=False):
 def organization_view(report_name, organization, refresh=False):
     return view(report_name=report_name, organization=organization, refresh=refresh)
 
+
 def report_base(report_name):
     return report.view(report_name)
+
 
 def report_base_org(report_name, organization):
     return report.view(report_name, organization)

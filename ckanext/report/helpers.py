@@ -4,7 +4,6 @@ from ckanext.report.report_registry import ReportRegistry
 from ckan.plugins import toolkit as tk
 import ckan.lib.helpers
 from ckan import model
-import logging
 
 
 def relative_url_for(**kwargs):
@@ -42,12 +41,12 @@ def relative_url_for(**kwargs):
                 del args[k]
         return tk.url_for(**args)
 
+
 # Used to get report for a specific organization
 def get_organization_url(organization):
     from flask import request
     if not organization:
         return request.path
-    
     organization_path = f"{request.path}/{organization}"
     return tk.url_for(organization_path)
 
