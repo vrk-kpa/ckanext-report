@@ -8,11 +8,8 @@
 {% endblock%}
 
 {% block primary_content_inner %}
-      {% if h.ckan_version().split('.')|map('int')|list >= [2, 9, 0] %}
-        {% asset 'report/report_js' %}
-      {% else %}
-        {% resource "report/report.js" %}
-      {% endif %}
+      {% set type = 'asset' if h.ckan_version().split('.')|map('int')|list >= [2, 9, 0] else 'resource' %}
+      {% include 'report/report_js_' ~ type ~ '.html' %}
       <h1>{{ _(report.title) }}</h1>
       <p>{{ _(report.description) }}</p>
       <p>
