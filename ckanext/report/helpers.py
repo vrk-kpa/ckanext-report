@@ -47,7 +47,7 @@ def get_organization_url(organization):
     from flask import request
     if not organization:
         return request.path
-    organization_path = f"{request.path}/{organization}"
+    organization_path = request.path + "/" + organization
     return tk.url_for(organization_path)
 
 
