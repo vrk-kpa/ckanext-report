@@ -26,7 +26,6 @@ class ReportPlugin(MixinPlugin, p.SingletonPlugin, DefaultTranslation):
 
     def update_config(self, config):
         p.toolkit.add_template_directory(config, '../templates')
-        p.toolkit.add_resource('../fanstatic', 'report')
 
     # ITemplateHelpers
 
@@ -34,6 +33,8 @@ class ReportPlugin(MixinPlugin, p.SingletonPlugin, DefaultTranslation):
         from ckanext.report import helpers as h
         return {
             'report__relative_url_for': h.relative_url_for,
+            'report__get_organization_url': h.get_organization_url,
+            'report__remove_organization_from_url': h.remove_organization_from_url,
             'report__chunks': h.chunks,
             'report__organization_list': h.organization_list,
             'report__render_datetime': h.render_datetime,

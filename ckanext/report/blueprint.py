@@ -8,6 +8,7 @@ from jinja2.exceptions import TemplateNotFound
 from ckanext.report.report_registry import Report
 from ckanext.report.lib import make_csv_from_dicts, ensure_data_is_dicts, anonymise_user_names
 from ckanext.report.helpers import relative_url_for
+import ckan.lib.helpers as h
 
 
 import logging
@@ -47,6 +48,19 @@ def view(report_name, organization=None, refresh=False):
         # organization should only be in the url - let the param overwrite
         # the url.
         t.redirect_to(relative_url_for())
+
+    # if organization is used as a parameter, redirect to /report/<report_name>/<organization>
+    organization_parm = t.request.params.get('organization')
+    if organization_parm:
+        # check if include suborganizations is specified in the request
+        if t.request.params.__contains__('include_sub_organizations'):
+            url = h.url_for('report.organization_view',
+                            report_name=report_name,
+                            organization=organization_parm,
+                            include_sub_organizations=1)
+        else:
+            url = h.url_for('report.organization_view', report_name=report_name, organization=organization_parm)
+        return t.redirect_to(url)
 
     # options
     options = Report.add_defaults_to_options(t.request.params, report['option_defaults'])
@@ -133,6 +147,7 @@ def view(report_name, organization=None, refresh=False):
     # A couple of context variables for legacy genshi reports
     c.data = data
     c.options = options
+
     return t.render('report/view.html', extra_vars={
         'report': report, 'report_name': report_name, 'data': data,
         'report_date': report_date, 'options': options,
@@ -141,9 +156,21 @@ def view(report_name, organization=None, refresh=False):
         'are_some_results': are_some_results})
 
 
+def organization_view(report_name, organization, refresh=False):
+    return view(report_name=report_name, organization=organization, refresh=refresh)
+
+
+def report_base(report_name):
+    return report.view(report_name)
+
+
+def report_base_org(report_name, organization):
+    return report.view(report_name, organization)
+
+
 report.add_url_rule(u'/report', view_func=index)
 report.add_url_rule(u'/report/<report_name>', view_func=view, methods=['GET', 'POST'])
-report.add_url_rule(u'/report/<report_name>/<organization>', view_func=view)
+report.add_url_rule(u'/report/<report_name>/<organization>', view_func=organization_view, methods=['GET', 'POST'])
 
 
 def get_blueprints():

@@ -27,6 +27,7 @@ def relative_url_for(**kwargs):
         for k, v in list(args.items()):
             if not v:
                 del args[k]
+
         return tk.url_for(request.path, **args)
 
     else:
@@ -39,6 +40,23 @@ def relative_url_for(**kwargs):
             if not v:
                 del args[k]
         return tk.url_for(**args)
+
+
+# Used to get report for a specific organization
+def get_organization_url(organization):
+    from flask import request
+    if not organization:
+        return request.path
+    organization_path = request.path + "/" + organization
+    return tk.url_for(organization_path)
+
+
+def remove_organization_from_url():
+    from flask import request
+    # remove the organization url from the current url
+    cut_index = request.path.rfind('/')
+    new_url = request.path[:cut_index]
+    return tk.url_for(new_url)
 
 
 def chunks(list_, size):

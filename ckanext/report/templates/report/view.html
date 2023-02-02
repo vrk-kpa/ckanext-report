@@ -4,15 +4,10 @@
 
 {% block breadcrumb_content %}
   <li>{{ h.nav_link(_('Reports'), named_route='report.index') }}</li>
-  <li class="active">{{ h.nav_link(report.title, named_route='report-org' if '/organization' in request.environ.get('PATH_INFO', '') else 'report.view', report_name=report_name) }}</li>
+  <li class="active">{{ h.nav_link(report.title, named_route='report.view', report_name=report_name) }}</li>
 {% endblock%}
 
 {% block primary_content_inner %}
-      {% if h.ckan_version().split('.')|map('int')|list >= [2, 9, 0] %}
-        {% asset 'report/report_js' %}
-      {% else %}
-        {% resource "report/report.js" %}
-      {% endif %}
       <h1>{{ _(report.title) }}</h1>
       <p>{{ _(report.description) }}</p>
       <p>
