@@ -57,19 +57,6 @@ def view(report_name, organization=None, refresh=False):
         args = {k: v for k, v in args.items(multi=True) if k != 'organization'}
         return t.redirect_to(t.url_for('report.view', report_name=report_name, organization=org_in_params, **args))
 
-    # if organization is used as a parameter, redirect to /report/<report_name>/<organization>
-    organization_parm = t.request.params.get('organization')
-    if organization_parm:
-        # check if include suborganizations is specified in the request
-        if t.request.params.__contains__('include_sub_organizations'):
-            url = h.url_for('report.organization_view',
-                            report_name=report_name,
-                            organization=organization_parm,
-                            include_sub_organizations=1)
-        else:
-            url = h.url_for('report.organization_view', report_name=report_name, organization=organization_parm)
-        return t.redirect_to(url)
-
     # options
     options = Report.add_defaults_to_options(t.request.args, report['option_defaults'])
     option_display_params = {}
@@ -168,21 +155,9 @@ def view(report_name, organization=None, refresh=False):
         'are_some_results': are_some_results})
 
 
-def organization_view(report_name, organization, refresh=False):
-    return view(report_name=report_name, organization=organization, refresh=refresh)
-
-
-def report_base(report_name):
-    return report.view(report_name)
-
-
-def report_base_org(report_name, organization):
-    return report.view(report_name, organization)
-
-
 report.add_url_rule(u'/report', view_func=index)
 report.add_url_rule(u'/report/<report_name>', view_func=view, methods=['GET', 'POST'])
-report.add_url_rule(u'/report/<report_name>/<organization>', view_func=organization_view, methods=['GET', 'POST'])
+report.add_url_rule(u'/report/<report_name>/<organization>', view_func=view)
 
 
 def get_blueprints():
