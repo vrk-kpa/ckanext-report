@@ -42,6 +42,7 @@ def relative_url_for(**kwargs):
                 del args[k]
         return tk.url_for(**args)
 
+    
 def chunks(list_, size):
     '''Splits up a given list into 'size' sized chunks.'''
     for i in range(0, len(list_), size):
