@@ -49,10 +49,11 @@ def chunks(list_, size):
 
 
 def organization_list(only_orgs_with_packages=False):
-    organizations = tk.get_action('organization_list')({}, {'all_fields': True})
+    organizations = tk.get_action('organization_list')({}, {'all_fields': True, 'include_extras': True})
 
     result = ({'name': org.get('name'),
                'title': org.get('title'),
+               'title_translated': org.get('title_translated'),
                'package_count': org.get('package_count', 0)} for org in organizations if org.get('state') == 'active')
     if only_orgs_with_packages:
         result = (org for org in result if org.get('package_count', 0) > 0)
