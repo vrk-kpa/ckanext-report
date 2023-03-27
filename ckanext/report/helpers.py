@@ -3,8 +3,7 @@
 from six.moves import range
 from ckanext.report.report_registry import ReportRegistry
 from ckan.plugins import toolkit as tk
-import ckan.lib.helpers
-from ckan import model
+from ckan.lib import helpers as h
 
 
 def relative_url_for(**kwargs):
@@ -49,12 +48,16 @@ def chunks(list_, size):
         yield list_[i:i + size]
 
 
-def organization_list():
-    organizations = model.Session.query(model.Group).\
-        filter(model.Group.type == 'organization').\
-        filter(model.Group.state == 'active').order_by('title')
-    for organization in organizations:
-        yield (organization.name, organization.title)
+def organization_list(only_orgs_with_packages=False):
+    organizations = tk.get_action('organization_list')({}, {'all_fields': True})
+
+    result = ({'name': org.get('name'),
+               'title': org.get('title'),
+               'package_count': org.get('package_count', 0)} for org in organizations if org.get('state') == 'active')
+    if only_orgs_with_packages:
+        result = (org for org in result if org.get('package_count', 0) > 0)
+
+    return result
 
 
 def render_datetime(datetime_, date_format=None, with_hours=False):
@@ -68,7 +71,7 @@ def render_datetime(datetime_, date_format=None, with_hours=False):
         date_format = '%d %b %Y'
     if with_hours:
         date_format += ' %H:%M'
-    return ckan.lib.helpers.render_datetime(datetime_, date_format)
+    return h.render_datetime(datetime_, date_format)
 
 
 def explicit_default_options(report_name):
