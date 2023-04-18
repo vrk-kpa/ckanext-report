@@ -53,7 +53,8 @@ def chunks(list_, size):
 
 
 def organization_list(only_orgs_with_packages=False):
-    organizations = model.Session.query(model.Group.id, model.Group.name, model.Group.title, func.count(model.Package.id).label('package_count')).\
+    organizations = model.Session.query(model.Group.id, model.Group.name, model.Group.title,
+                                        func.count(model.Package.id).label('package_count')).\
         filter(model.Group.type == 'organization').\
         filter(model.Group.state == 'active').\
         outerjoin(model.Package, model.Package.owner_org == model.Group.id).\
