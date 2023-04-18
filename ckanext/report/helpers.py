@@ -2,8 +2,12 @@
 
 from six.moves import range
 from ckanext.report.report_registry import ReportRegistry
+from sqlalchemy import func
 from ckan.plugins import toolkit as tk
 from ckan.lib import helpers as h
+import ckan.model as model
+
+log = __import__('logging').getLogger(__name__)
 
 
 def relative_url_for(**kwargs):
@@ -49,16 +53,24 @@ def chunks(list_, size):
 
 
 def organization_list(only_orgs_with_packages=False):
-    organizations = tk.get_action('organization_list')({}, {'all_fields': True, 'include_extras': True})
+    organizations = model.Session.query(model.Group.id, model.Group.name, model.Group.title,
+                                        func.count(model.Package.id).label('package_count')).\
+        filter(model.Group.type == 'organization').\
+        filter(model.Group.state == 'active').\
+        outerjoin(model.Package, model.Package.owner_org == model.Group.id).\
+        group_by(model.Group.id).order_by(model.Group.title).all()
 
-    result = ({'name': org.get('name'),
-               'title': org.get('title'),
-               'title_translated': org.get('title_translated'),
-               'package_count': org.get('package_count', 0)} for org in organizations if org.get('state') == 'active')
-    if only_orgs_with_packages:
-        result = (org for org in result if org.get('package_count', 0) > 0)
+    for organization in organizations:
+        extras = model.Session.query(model.GroupExtra.value.label('title_translated')).filter(
+            model.GroupExtra.key == 'title_translated', model.GroupExtra.group_id == organization.id).first()
+        title_translated = extras.title_translated if extras else ''
+        org = {"name": organization.name, "title": organization.title, "title_translated": title_translated}
 
-    return result
+        if only_orgs_with_packages:
+            if organization.package_count > 0:
+                yield (org)
+        else:
+            yield (org)
 
 
 def render_datetime(datetime_, date_format=None, with_hours=False):
