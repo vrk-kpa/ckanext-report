@@ -9,6 +9,7 @@ import ckan.model as model
 
 log = __import__('logging').getLogger(__name__)
 
+
 def relative_url_for(**kwargs):
     '''Return the existing URL but amended for the given url_for-style
     parameters. Much easier than calling h.add_url_param etc. For switching to
@@ -59,11 +60,16 @@ def organization_list(only_orgs_with_packages=False):
         group_by(model.Group.id).order_by(model.Group.title).all()
 
     for organization in organizations:
+        extras = model.Session.query(model.GroupExtra.value.label('title_translated')).filter(
+            model.GroupExtra.key == 'title_translated', model.GroupExtra.group_id == organization.id).first()
+        title_translated = extras.title_translated if extras else ''
+        org = {"name": organization.name, "title": organization.title, "title_translated": title_translated}
+
         if only_orgs_with_packages:
             if organization.package_count > 0:
-                yield ({"name": organization.name, "title": organization.title})
+                yield (org)
         else:
-            yield ({"name": organization.name, "title": organization.title})
+            yield (org)
 
 
 def render_datetime(datetime_, date_format=None, with_hours=False):
