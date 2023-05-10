@@ -87,3 +87,8 @@ def explicit_default_options(report_name):
         if options[key] is True:
             explicit_defaults[key] = 1
     return explicit_defaults
+
+
+def get_time() -> str:
+    params = dict(list(request.args.items()))
+    return params.get('time', 'month')
