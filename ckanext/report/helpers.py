@@ -1,11 +1,11 @@
 # encoding: utf-8
 
 from six.moves import range
-from ckanext.report.report_registry import ReportRegistry
-from sqlalchemy import func
+from flask import request
 from ckan.plugins import toolkit as tk
 from ckan.lib import helpers as h
-import ckan.model as model
+from ckanext.report.lib import get_all_organizations
+from ckanext.report.report_registry import ReportRegistry
 
 log = __import__('logging').getLogger(__name__)
 
@@ -22,7 +22,6 @@ def relative_url_for(**kwargs):
     user_specified_params = [(k, v) for k, v in tk.request.params.items()
                              if k not in disallowed_params]
     if tk.check_ckan_version(min_version="2.9.0"):
-        from flask import request
         args = dict(list(request.args.items())
                     + user_specified_params
                     + list(kwargs.items()))
@@ -53,24 +52,7 @@ def chunks(list_, size):
 
 
 def organization_list(only_orgs_with_packages=False):
-    organizations = model.Session.query(model.Group.id, model.Group.name, model.Group.title,
-                                        func.count(model.Package.id).label('package_count')).\
-        filter(model.Group.type == 'organization').\
-        filter(model.Group.state == 'active').\
-        outerjoin(model.Package, model.Package.owner_org == model.Group.id).\
-        group_by(model.Group.id).order_by(model.Group.title).all()
-
-    for organization in organizations:
-        extras = model.Session.query(model.GroupExtra.value.label('title_translated')).filter(
-            model.GroupExtra.key == 'title_translated', model.GroupExtra.group_id == organization.id).first()
-        title_translated = extras.title_translated if extras else ''
-        org = {"name": organization.name, "title": organization.title, "title_translated": title_translated}
-
-        if only_orgs_with_packages:
-            if organization.package_count > 0:
-                yield (org)
-        else:
-            yield (org)
+    return get_all_organizations(only_orgs_with_packages)
 
 
 def render_datetime(datetime_, date_format=None, with_hours=False):
@@ -105,3 +87,8 @@ def explicit_default_options(report_name):
         if options[key] is True:
             explicit_defaults[key] = 1
     return explicit_defaults
+
+
+def get_time() -> str:
+    params = dict(list(request.args.items()))
+    return params.get('time', 'month')

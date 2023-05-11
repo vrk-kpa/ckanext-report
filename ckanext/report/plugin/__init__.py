@@ -38,6 +38,7 @@ class ReportPlugin(MixinPlugin, p.SingletonPlugin, DefaultTranslation):
             'report__organization_list': h.organization_list,
             'report__render_datetime': h.render_datetime,
             'report__explicit_default_options': h.explicit_default_options,
+            'report__get_time': h.get_time
         }
 
     # IActions

@@ -11,12 +11,19 @@ except ImportError:
 
 import ckan.plugins as p
 from ckan.plugins.toolkit import config
+from ckan import model
+from typing import Generator, Union, Dict, TypedDict, Optional
+from sqlalchemy import func
+
+Organization = TypedDict('Organization', {'id': str,
+                                          'name': str,
+                                          'title': str,
+                                          'title_translated': Optional[Dict[str, str]]})
 
 
-def all_organizations(include_none=False):
+def all_organizations(include_none=False) -> Generator[Union[str, None], None, None]:
     '''Yields all the organization names, and also None if requested. Useful
     when assembling option_combinations'''
-    from ckan import model
     if include_none:
         yield None
     organizations = model.Session.query(model.Group).\
@@ -24,6 +31,31 @@ def all_organizations(include_none=False):
         filter(model.Group.state == 'active').order_by('name')
     for organization in organizations:
         yield organization.name
+
+
+def get_all_organizations(only_orgs_with_packages=False) -> Generator[Organization, None, None]:
+    organizations = model.Session.query(model.Group.id, model.Group.name, model.Group.title,
+                                        func.count(model.Package.id).label('package_count')).\
+        filter(model.Group.type == 'organization').\
+        filter(model.Group.state == 'active').\
+        outerjoin(model.Package, model.Package.owner_org == model.Group.id).\
+        group_by(model.Group.id).order_by(model.Group.title).all()
+
+    for organization in organizations:
+        extras = model.Session.query(model.GroupExtra.value.label('title_translated')).filter(
+            model.GroupExtra.key == 'title_translated', model.GroupExtra.group_id == organization.id).first()
+        title_translated: Dict[str,
+                               str] = extras.title_translated if extras else {}
+        org: Organization = {'id': organization.id,
+                             'name': organization.name,
+                             'title': organization.title,
+                             'title_translated': title_translated}
+
+        if only_orgs_with_packages:
+            if organization.package_count > 0:
+                yield (org)
+        else:
+            yield (org)
 
 
 def go_down_tree(organization):
@@ -43,7 +75,6 @@ def filter_by_organizations(query, organization, include_sub_organizations):
     '''Given an SQLAlchemy ORM query object, it returns it filtered by the
     given organization and optionally its sub organizations too.
     '''
-    from ckan import model
     if not organization:
         return query
     if isinstance(organization, six.string_types):
@@ -108,7 +139,7 @@ def make_csv_from_dicts(rows):
         try:
             csvwriter.writerow(items)
         except Exception as e:
-            raise Exception("%s: %s, %s" % (e, row, items))
+            raise Exception('%s: %s, %s' % (e, row, items))
     csvout.seek(0)
     return csvout.read()
 
