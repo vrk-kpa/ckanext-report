@@ -14,7 +14,11 @@
   {% set type = 'asset' if h.check_ckan_version(min_version="2.9.0", max_version="3.0.0") else 'resource' %}
   {% include 'report/report_js_' ~ type ~ '.html' %}
       <h1>{{ _(report.title) }}</h1>
-      <p>{{ _(report.long_description if report.long_description else report.description) }}</p>
+      {% if report.description_template %}
+          {% snippet report.description_template, report_name=report_name, options=options %}
+      {% else %}
+        <p>{{ _(report.long_description if report.long_description else report.description) }}</p>
+      {% endif %}
       <p>
           {{ _('Generated') }}: {{ h.render_datetime(report_date, with_hours=True) }}
       </p>
