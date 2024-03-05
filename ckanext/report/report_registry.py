@@ -18,7 +18,7 @@ log = logging.getLogger(__name__)
 
 REPORT_KEYS_REQUIRED = set(('name', 'generate', 'template', 'option_defaults',
                             'option_combinations'))
-REPORT_KEYS_OPTIONAL = set(('title', 'description', 'authorize'))
+REPORT_KEYS_OPTIONAL = set(('title', 'description', 'long_description', 'authorize'))
 
 
 class Report(object):
@@ -51,6 +51,8 @@ class Report(object):
                 self.title = re.sub('[_-]', ' ', self.name.capitalize())
             elif key == 'description':
                 self.description = ''
+            elif key == 'long_description':
+                self.long_description = ''
 
     def generate_key(self, option_dict, defaults_for_missing_keys=True):
         '''Returns a key that will identify the report and options when saved
@@ -159,6 +161,7 @@ class Report(object):
         return {'name': self.name,
                 'title': self.title,
                 'description': self.description,
+                'long_description': self.long_description,
                 'option_defaults': self.option_defaults,
                 'template': self.get_template()}
 
