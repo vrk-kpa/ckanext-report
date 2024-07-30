@@ -5,6 +5,7 @@
 # 
 # Translators:
 # Jonna Jantunen <jonna.jantunen@vrk.fi>, 2019
+# Laura Eloranta, 2024
 # 
 #, fuzzy
 msgid ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2021-09-17 09:35+0000\n"
 "PO-Revision-Date: 2018-03-22 08:36+0000\n"
-"Last-Translator: Jonna Jantunen <jonna.jantunen@vrk.fi>, 2019\n"
+"Last-Translator: Laura Eloranta, 2024\n"
 "Language-Team: English (United Kingdom) (https://app.transifex.com/avoindata/teams/7979/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,7 +32,7 @@ msgstr "Statistics"
 
 #: ckanext/report/templates/report/index.html:26
 msgid "View Report"
-msgstr ""
+msgstr "Show statistics"
 
 #: ckanext/report/templates/report/option_include_sub_organizations.html:9
 msgid "Include results from sub-organizations"
@@ -39,7 +40,7 @@ msgstr ""
 
 #: ckanext/report/templates/report/option_organization.html:9
 msgid "Organization"
-msgstr ""
+msgstr "Organisation"
 
 #: ckanext/report/templates/report/option_organization.html:12
 #: ckanext/report/templates/report/option_organization.html:16
@@ -48,7 +49,7 @@ msgstr ""
 
 #: ckanext/report/templates/report/tagless-datasets.html:8
 msgid "Datasets without tags"
-msgstr ""
+msgstr "Datasets without keywords"
 
 #: ckanext/report/templates/report/tagless-datasets.html:9
 msgid "Average tags per package"
@@ -56,19 +57,19 @@ msgstr ""
 
 #: ckanext/report/templates/report/tagless-datasets.html:15
 msgid "Dataset"
-msgstr ""
+msgstr "Dataset"
 
 #: ckanext/report/templates/report/tagless-datasets.html:16
 msgid "Notes"
-msgstr ""
+msgstr "Description"
 
 #: ckanext/report/templates/report/tagless-datasets.html:17
 msgid "User"
-msgstr ""
+msgstr "User"
 
 #: ckanext/report/templates/report/tagless-datasets.html:18
 msgid "Created"
-msgstr ""
+msgstr "Created"
 
 #: ckanext/report/templates/report/view.html:14
 msgid "Generated"
@@ -76,30 +77,32 @@ msgstr ""
 
 #: ckanext/report/templates/report/view.html:18
 msgid "Refresh report"
-msgstr ""
+msgstr "Refresh report"
 
 #: ckanext/report/templates/report/view.html:21
 msgid "Refresh"
-msgstr ""
+msgstr "Refresh"
 
 #: ckanext/report/templates/report/view.html:23
 msgid ""
 "As a system administrator you are able to refresh this report on demand by "
 "clicking the 'Refresh' button."
 msgstr ""
+"As a system administrator you are able to refresh this report on demand by "
+"clicking the 'Refresh' button."
 
 #: ckanext/report/templates/report/view.html:29
 msgid "Options"
-msgstr ""
+msgstr "Options"
 
 #: ckanext/report/templates/report/view.html:45
 msgid "Download"
-msgstr ""
+msgstr "Download"
 
 #: ckanext/report/templates/report/view.html:50
 msgid "Results"
-msgstr ""
+msgstr "Results"
 
 #: ckanext/report/templates/report/view.html:52
 msgid "No results found."
-msgstr ""
+msgstr "No results found."
