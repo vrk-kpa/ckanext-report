@@ -1,0 +1,9 @@
+git:
+  filters:
+    - filter_type: file
+      file_format: PO
+      source_language: en
+      source_file: 'ckanext/report/i18n/ckanext-report.pot'
+      translation_files_expression: 'ckanext/report/i18n/<lang>/LC_MESSAGES/ckanext-report.po'
+
+
