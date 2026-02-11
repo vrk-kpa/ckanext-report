@@ -7,13 +7,13 @@ default - Default value for this option
 
 
 
-<span class="form-select control-group control-organization">
+<span class="control-group control-organization">
     <label for="option-organization"> {{ _('Organization') }}: </label>
     {% set offer_organization_index = (default == None) %}
     {% if offer_organization_index and value != None %}
         <a href="{{ h.url_for('report.view', report_name=report_name, time=h.report__get_time()) }}">{% trans %}Index of all organizations{% endtrans %}</a>
     {% endif %}
-    <select id="option-organization" name="organization" class="inline js-auto-submit">
+    <select id="option-organization" name="organization" class="inline js-auto-submit form-select">
         {% if offer_organization_index %}
           <option value="" {% if value == None %}selected="selected"{% endif %}>-- {{ _('Index of all organizations') }} --</option>
         {% endif %}

@@ -23,9 +23,9 @@
           {{ _('Generated') }}: {{ h.render_datetime(report_date, with_hours=True) }}
       </p>
       {% if c.userobj.sysadmin %}
-      <div class="panel panel-info report-controls" style="width=700px">
-          <div class="panel-heading"><strong>{% trans %}Refresh report{% endtrans %}</strong></div>
-          <div class="panel-body">
+      <div class="card report-controls">
+          <div class="card-header"><strong>{% trans %}Refresh report{% endtrans %}</strong></div>
+          <div class="card-body">
             <form action="" method="POST">
               <input type="submit" value="{% trans %}Refresh{% endtrans %}" class="btn btn-info pull-right" style="margin-left: 15px"/>
             </form>
