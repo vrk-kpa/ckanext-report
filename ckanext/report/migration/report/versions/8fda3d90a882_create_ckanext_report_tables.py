@@ -1,7 +1,7 @@
 """Create ckanext-report tables
 
 Revision ID: 8fda3d90a882
-Revises: 
+Revises:
 Create Date: 2026-01-09 12:58:09.160088
 
 """
